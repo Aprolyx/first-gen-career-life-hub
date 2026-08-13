@@ -87,5 +87,25 @@ router.post('/login', async function(req, res) {
     });
   }
 });
+// GET USER BY USERNAME
+router.get('/user/:username', async function(req, res) {
+  try {
+    const user = await User.findOne({
+      username: req.params.username
+    }).select('_id username');
 
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found.'
+      });
+    }
+
+    res.json(user);
+
+  } catch (error) {
+    res.status(500).json({
+      message: 'Server error while loading user.'
+    });
+  }
+});
 module.exports = router;
