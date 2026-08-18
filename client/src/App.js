@@ -65,7 +65,7 @@ function handleLogout() {
   handleLogout={handleLogout}
 />
         ) : (
-          <section>
+          <section className="auth-section">
 
             <h2>Login</h2>
 

@@ -148,10 +148,15 @@ function Dashboard({ username, userId, handleLogout }) {
   }
 
   return (
-    <div>
+    <div className="dashboard">
 
       <h2>Welcome, {username}</h2>
-      <button type="button" onClick={handleLogout}>
+
+      <button
+  type="button"
+  className="logout-button"
+  onClick={handleLogout}
+>
   Logout
 </button>
 
@@ -161,21 +166,28 @@ function Dashboard({ username, userId, handleLogout }) {
 
       <h3>Categories</h3>
 
-      <div>
+      <div className="category-list">
+
         {categories.map(function(category) {
           return (
             <button
               key={category._id}
+              className={
+                selectedCategory?._id === category._id
+                  ? 'active-category'
+                  : ''
+              }
               onClick={() => selectCategory(category)}
             >
               {category.name}
             </button>
           );
         })}
+
       </div>
 
       {selectedCategory && (
-        <div>
+        <div className="category-section">
 
           <h3>{selectedCategory.name}</h3>
 
@@ -219,7 +231,10 @@ function Dashboard({ username, userId, handleLogout }) {
           ) : (
             questions.map(function(question) {
               return (
-                <div key={question._id}>
+                <div
+                  key={question._id}
+                  className="question-card"
+                >
 
                   <h4>{question.title}</h4>
 
@@ -230,6 +245,11 @@ function Dashboard({ username, userId, handleLogout }) {
                       Posted by: {question.author.username}
                     </p>
                   )}
+                  {question.createdAt && (
+  <p>
+    Posted: {new Date(question.createdAt).toLocaleString()}
+  </p>
+)}
 
                   <button
                     type="button"
@@ -275,7 +295,10 @@ function Dashboard({ username, userId, handleLogout }) {
               ) : (
                 answers.map(function(answer) {
                   return (
-                    <div key={answer._id}>
+                    <div
+                      key={answer._id}
+                      className="answer-card"
+                    >
 
                       <p>{answer.body}</p>
 
@@ -284,6 +307,11 @@ function Dashboard({ username, userId, handleLogout }) {
                           Answered by: {answer.author.username}
                         </p>
                       )}
+                      {answer.createdAt && (
+  <p>
+    Answered: {new Date(answer.createdAt).toLocaleString()}
+  </p>
+)}
 
                     </div>
                   );

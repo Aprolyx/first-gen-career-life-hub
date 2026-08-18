@@ -1,38 +1,232 @@
+/* Whole application */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #f4f7f6;
+  color: #1f2933;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  background-color: #12372a;
   color: white;
+  padding: 30px 20px;
 }
 
-.App-link {
-  color: #61dafb;
+/* Main title */
+header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.2rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Header description */
+header p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Main content */
+main {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px 40px 20px;
+}
+
+/* Sections */
+section {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+/* Login and registration card */
+.auth-section {
+  max-width: 550px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Space between Login and Register */
+.auth-section h2 {
+  margin-top: 10px;
+}
+
+/* Separate registration from login */
+.register-section {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 2px solid #d7e3dc;
+}
+
+/* Forms */
+form {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+/* Labels */
+label {
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Inputs and text areas */
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #b8c2bd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Text area */
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Buttons */
+button {
+  padding: 10px 18px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2f855a;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Button hover */
+button:hover {
+  background-color: #276749;
+}
+
+/* Logout button */
+.logout-button {
+  background-color: transparent;
+  color: #18392b;
+  border: 1px solid #18392b;
+}
+
+/* Logout button hover */
+.logout-button:hover {
+  background-color: #e8f0ec;
+  color: #18392b;
+}
+/* Headings */
+h2,
+h3,
+h4 {
+  color: #18392b;
+}
+
+/* Small messages */
+form + p {
+  margin-top: 10px;
+}
+
+/* Dashboard category buttons */
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 30px 0;
+}
+
+.category-list button {
+  flex: 1;
+  min-width: 150px;
+  max-width: 220px;
+}
+
+/* Selected category button */
+.active-category {
+  background-color: #18392b;
+  outline: 3px solid #b7d8c7;
+}
+
+/* Selected category area */
+.category-section {
+  background-color: white;
+  padding: 25px;
+  margin-top: 25px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+/* Selected category heading */
+.category-section h3 {
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #d7e3dc;
+}
+
+/* Question cards */
+.question-card {
+  background-color: #f8fbf9;
+  border: 1px solid #d7e3dc;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+/* Question title */
+.question-card h4 {
+  margin-top: 0;
+}
+
+/* Posted by text */
+.question-card p:last-of-type {
+  font-size: 14px;
+  color: #5f6f68;
+}
+
+/* Answer cards */
+.answer-card {
+  background-color: #ffffff;
+  border-left: 4px solid #2f855a;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+/* Answer text */
+.answer-card p {
+  margin: 5px 0;
+}
+
+/* Answered by text */
+.answer-card p:last-child {
+  font-size: 13px;
+  color: #5f6f68;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.7rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  main {
+    margin: 20px auto;
+    padding: 0 12px 30px 12px;
+  }
+
+  section {
+    padding: 18px;
+  }
+
+  button {
+    width: 100%;
+    margin: 6px 0;
   }
 }
