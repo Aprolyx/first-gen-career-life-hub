@@ -1,6 +1,8 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
+
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const categoryRoutes = require('./routes/categories');
@@ -12,8 +14,8 @@ connectDB();
 
 // Create Express application
 const app = express();
-
 // Allow the server to read JSON
+app.use(cors());
 app.use(express.json());
 
 // API routes
