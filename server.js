@@ -24,7 +24,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/answers', answerRoutes);
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Home test route
 app.get('/', function(req, res) {
