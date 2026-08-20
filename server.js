@@ -32,6 +32,6 @@ app.get('/', function(req, res) {
 });
 
 // Start server
-app.listen(PORT, function() {
+app.listen(PORT, '0.0.0.0', function() {
   console.log(`Server is running on port ${PORT}`);
 });
