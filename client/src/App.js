@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
@@ -7,14 +7,22 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [loggedInUser, setLoggedInUser] = useState('');
-const [loggedInUserId, setLoggedInUserId] = useState('');
+const [loggedInUser, setLoggedInUser] = useState(
+  localStorage.getItem('loggedInUser') || ''
+);
+
+const [loggedInUserId, setLoggedInUserId] = useState(
+  localStorage.getItem('loggedInUserId') || ''
+);
 function handleLogout() {
   setLoggedInUser('');
   setLoggedInUserId('');
   setUsername('');
   setPassword('');
   setMessage('');
+
+  localStorage.removeItem('loggedInUser');
+  localStorage.removeItem('loggedInUserId');
 }
 
   async function handleLogin(event) {
@@ -36,9 +44,12 @@ function handleLogout() {
 
       setMessage(data.message);
 
-     if (response.ok) {
+    if (response.ok) {
   setLoggedInUser(data.username);
   setLoggedInUserId(data.userId);
+
+  localStorage.setItem('loggedInUser', data.username);
+  localStorage.setItem('loggedInUserId', data.userId);
 }
 
     } catch (error) {
