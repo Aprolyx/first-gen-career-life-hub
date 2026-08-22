@@ -307,7 +307,7 @@ const response = await fetch(
                           Answered by: {answer.author.username}
                         </p>
                       )}
-                      {answer.createdAt && (
+                     {answer.createdAt && (
   <p>
     Answered: {new Date(answer.createdAt).toLocaleString()}
   </p>
@@ -323,6 +323,25 @@ const response = await fetch(
 
         </div>
       )}
+
+      <div className="dedication">
+        <h3>For the Ones Who Came Before Us</h3>
+
+        <p>
+          To our parents, families, and communities who led the way without always
+          having a roadmap of their own—thank you.
+        </p>
+
+        <p>
+          We may be the first to navigate college, careers, and spaces our families
+          never had access to, but we didn't get here alone. Your sacrifices,
+          resilience, and dreams helped open doors for us.
+        </p>
+
+        <p className="dedication-closing">
+          We are first-gen, but we are never the first ones who dreamed of getting here.
+        </p>
+      </div>
 
     </div>
   );
