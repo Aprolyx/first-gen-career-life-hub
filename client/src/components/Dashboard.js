@@ -57,13 +57,13 @@ function Dashboard({ username, userId, handleLogout }) {
     }
 
     try {
-      const response = await fetch(
-        'http://localhost:3001/api/questions',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+const response = await fetch(
+  'https://first-gen-career-life-hub.onrender.com/api/questions',
+  {
+    method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
           body: JSON.stringify({
             title: questionTitle,
             body: questionBody,
@@ -90,16 +90,16 @@ function Dashboard({ username, userId, handleLogout }) {
     }
   }
 
-  async function openQuestion(question) {
-    setSelectedQuestion(question);
-    setAnswerText('');
+ async function openQuestion(question) {
+  setSelectedQuestion(question);
+  setAnswerText('');
 
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/answers/question/${question._id}`
-      );
+  try {
+    const response = await fetch(
+      `https://first-gen-career-life-hub.onrender.com/api/answers/question/${question._id}`
+    );
 
-      const data = await response.json();
+    const data = await response.json();
 
       setAnswers(data);
 
@@ -116,13 +116,13 @@ function Dashboard({ username, userId, handleLogout }) {
     }
 
     try {
-      const response = await fetch(
-        'http://localhost:3001/api/answers',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+  const response = await fetch(
+  'https://first-gen-career-life-hub.onrender.com/api/answers',
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
           body: JSON.stringify({
             body: answerText,
             question: selectedQuestion._id,
