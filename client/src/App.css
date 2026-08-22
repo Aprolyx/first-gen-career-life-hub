@@ -28,10 +28,11 @@ header p {
 
 /* Main content */
 main {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 40px auto;
   padding: 0 20px 40px 20px;
 }
+
 /* Dashboard container */
 .dashboard {
   background-color: white;
@@ -39,6 +40,7 @@ main {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
+
 /* Dashboard welcome area */
 .dashboard > h2 {
   margin-bottom: 5px;
@@ -49,6 +51,7 @@ main {
   margin-bottom: 25px;
   color: #5f6f68;
 }
+
 /* Sections */
 section {
   background-color: white;
@@ -64,7 +67,7 @@ section {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Space between Login and Register */
+/* Login heading */
 .auth-section h2 {
   margin-top: 10px;
 }
@@ -74,6 +77,79 @@ section {
   margin-top: 35px;
   padding-top: 25px;
   border-top: 2px solid #d7e3dc;
+}
+/* Registration validation layout */
+.register-field-row {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.register-field {
+  width: 100%;
+}
+
+.register-error {
+  position: absolute;
+  left: calc(100% + 15px);
+  bottom: 10px;
+  width: 180px;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+}
+
+.register-field {
+  min-width: 0;
+}
+
+/* Error messages displayed to the right of fields */
+.register-error {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.register-error p {
+  margin: 0;
+  color: #b42318;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: left;
+  line-height: 1.3;
+}
+
+/* Terms and Conditions area */
+.terms-row {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.terms-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  font-weight: normal;
+}
+
+.terms-label input {
+  width: auto;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Turn Terms text red when validation fails */
+.terms-label.terms-error {
+  color: #b42318;
+  font-weight: bold;
+}
+
+.terms-error-message {
+  margin: 6px 0 0 0;
+  color: #b42318;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: left;
 }
 
 /* Forms */
@@ -125,18 +201,23 @@ button:hover {
   background-color: #276749;
 }
 
-/* Logout button */
-.logout-button {
-  background-color: transparent;
-  color: #18392b;
-  border: 1px solid #18392b;
+/* Logout link */
+.logout-link {
+  background: none;
+  border: none;
+  color: #2f855a;
+  padding: 0;
+  margin: 5px 0 15px 0;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-/* Logout button hover */
-.logout-button:hover {
-  background-color: #e8f0ec;
+.logout-link:hover {
+  background: none;
   color: #18392b;
 }
+
 /* Headings */
 h2,
 h3,
@@ -149,27 +230,53 @@ form + p {
   margin-top: 10px;
 }
 
-/* Dashboard category buttons */
-.category-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin: 20px 0 30px 0;
+/* Dashboard two-column layout */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 25px;
+  align-items: start;
+  margin-top: 25px;
 }
 
+/* Left category sidebar */
+.category-sidebar {
+  background-color: #f8fbf9;
+  border: 1px solid #d7e3dc;
+  border-radius: 10px;
+  padding: 18px;
+  max-height: 520px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.category-sidebar h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+/* Category menu */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Category buttons */
 .category-list button {
-  flex: 1;
-  min-width: 150px;
-  max-width: 220px;
+  width: 100%;
   min-height: 55px;
+  margin: 0;
+  padding: 10px 12px;
   font-weight: bold;
   line-height: 1.3;
+  text-align: left;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Category button hover */
 .category-list button:hover {
-  transform: translateY(-2px);
+  transform: translateX(3px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
@@ -179,14 +286,39 @@ form + p {
   outline: 3px solid #b7d8c7;
 }
 
+/* Main forum area */
+.forum-content {
+  background-color: white;
+  border: 1px solid #d7e3dc;
+  border-radius: 10px;
+  padding: 25px;
+  min-height: 300px;
+  margin-bottom: 0;
+}
+
+/* Message before a category is selected */
+.category-placeholder {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.category-placeholder h3 {
+  margin-top: 0;
+}
+
+.category-placeholder p {
+  color: #5f6f68;
+}
+
 /* Selected category area */
 .category-section {
   background-color: white;
-  padding: 25px;
-  margin-top: 25px;
+  padding: 0;
+  margin-top: 0;
   border-radius: 10px;
   text-align: left;
 }
+
 /* Ask a Question form */
 .category-section form {
   background-color: #f8fbf9;
@@ -195,8 +327,9 @@ form + p {
   padding: 20px;
   margin-bottom: 25px;
 }
+
 /* Selected category heading */
-.category-section h3 {
+.category-section > h3 {
   margin-top: 0;
   padding-bottom: 10px;
   border-bottom: 2px solid #d7e3dc;
@@ -212,6 +345,7 @@ form + p {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Question card hover */
 .question-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -283,7 +417,19 @@ form + p {
   header h1 {
     font-size: 1.7rem;
   }
+  /* Registration errors stack on mobile */
+  .register-field-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 
+  .register-error {
+    min-height: 0;
+  }
+
+  .register-error p {
+    margin-top: 4px;
+  }
   main {
     margin: 20px auto;
     padding: 0 12px 30px 12px;
@@ -297,8 +443,14 @@ form + p {
     padding: 18px;
   }
 
-  .category-section {
-    padding: 18px;
+  /* Stack sidebar above forum on phones */
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .category-sidebar {
+    max-height: none;
   }
 
   .category-list {
@@ -306,12 +458,27 @@ form + p {
   }
 
   .category-list button {
-    max-width: none;
     width: 100%;
+  }
+
+  .forum-content {
+    padding: 18px;
+  }
+
+  .category-section {
+    padding: 0;
+  }
+
+  .category-placeholder {
+    padding: 35px 10px;
   }
 
   button {
     width: 100%;
     margin: 6px 0;
+  }
+
+  .dedication {
+    padding: 25px 18px;
   }
 }

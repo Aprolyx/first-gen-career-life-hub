@@ -9,19 +9,35 @@ router.post('/register', async function(req, res) {
   try {
     const { username, password } = req.body;
 
+    // Username and password are required
     if (!username || !password) {
       return res.status(400).json({
         message: 'Username and password are required.'
       });
     }
 
-    if (password.length < 8 || !/\d/.test(password)) {
+    // Username must be 3-20 characters using letters, numbers, or underscores
+    const usernamePattern = /^[A-Za-z0-9_]{3,20}$/;
+
+    if (!usernamePattern.test(username)) {
       return res.status(400).json({
-        message: 'Password must be at least 8 characters long and contain a number.'
+        message:
+          'Username must be 3-20 characters and contain only letters, numbers, or underscores.'
       });
     }
 
-    const existingUser = await User.findOne({ username: username });
+    // Password must be at least 8 characters and contain a number
+    if (password.length < 8 || !/\d/.test(password)) {
+      return res.status(400).json({
+        message:
+          'Password must be at least 8 characters long and contain a number.'
+      });
+    }
+
+    // Prevent duplicate usernames
+    const existingUser = await User.findOne({
+      username: username
+    });
 
     if (existingUser) {
       return res.status(400).json({
@@ -29,6 +45,7 @@ router.post('/register', async function(req, res) {
       });
     }
 
+    // Hash password before saving it
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
@@ -60,7 +77,9 @@ router.post('/login', async function(req, res) {
       });
     }
 
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({
+      username: username
+    });
 
     if (!user) {
       return res.status(401).json({
@@ -68,7 +87,10 @@ router.post('/login', async function(req, res) {
       });
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
 
     if (!passwordMatch) {
       return res.status(401).json({
@@ -77,10 +99,10 @@ router.post('/login', async function(req, res) {
     }
 
     res.json({
-  message: 'Login successful.',
-  username: user.username,
-  userId: user._id
-});
+      message: 'Login successful.',
+      username: user.username,
+      userId: user._id
+    });
 
   } catch (error) {
     res.status(500).json({
@@ -88,6 +110,7 @@ router.post('/login', async function(req, res) {
     });
   }
 });
+
 // GET USER BY USERNAME
 router.get('/user/:username', async function(req, res) {
   try {
@@ -109,4 +132,5 @@ router.get('/user/:username', async function(req, res) {
     });
   }
 });
+
 module.exports = router;

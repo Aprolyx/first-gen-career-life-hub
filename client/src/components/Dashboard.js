@@ -11,17 +11,17 @@ function Dashboard({ username, userId, handleLogout }) {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
 
+  // Load forum categories from the backend
   useEffect(function() {
     async function loadCategories() {
       try {
         const response = await fetch(
-         'https://first-gen-career-life-hub.onrender.com/api/categories'
+          'https://first-gen-career-life-hub.onrender.com/api/categories'
         );
 
         const data = await response.json();
 
         setCategories(data);
-
       } catch (error) {
         console.log('Unable to load categories.');
       }
@@ -30,25 +30,26 @@ function Dashboard({ username, userId, handleLogout }) {
     loadCategories();
   }, []);
 
+  // Load questions for the selected category
   async function selectCategory(category) {
     setSelectedCategory(category);
     setSelectedQuestion(null);
     setAnswers([]);
 
-   try {
-  const response = await fetch(
-    `https://first-gen-career-life-hub.onrender.com/api/questions/category/${category._id}`
-  );
+    try {
+      const response = await fetch(
+        `https://first-gen-career-life-hub.onrender.com/api/questions/category/${category._id}`
+      );
 
       const data = await response.json();
 
       setQuestions(data);
-
     } catch (error) {
       console.log('Unable to load questions.');
     }
   }
 
+  // Create a new question
   async function handleQuestionSubmit(event) {
     event.preventDefault();
 
@@ -57,13 +58,13 @@ function Dashboard({ username, userId, handleLogout }) {
     }
 
     try {
-const response = await fetch(
-  'https://first-gen-career-life-hub.onrender.com/api/questions',
-  {
-    method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      const response = await fetch(
+        'https://first-gen-career-life-hub.onrender.com/api/questions',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
             title: questionTitle,
             body: questionBody,
@@ -84,30 +85,30 @@ const response = await fetch(
         setQuestionTitle('');
         setQuestionBody('');
       }
-
     } catch (error) {
       console.log('Unable to post question.');
     }
   }
 
- async function openQuestion(question) {
-  setSelectedQuestion(question);
-  setAnswerText('');
+  // Load answers for a selected question
+  async function openQuestion(question) {
+    setSelectedQuestion(question);
+    setAnswerText('');
 
-  try {
-    const response = await fetch(
-      `https://first-gen-career-life-hub.onrender.com/api/answers/question/${question._id}`
-    );
+    try {
+      const response = await fetch(
+        `https://first-gen-career-life-hub.onrender.com/api/answers/question/${question._id}`
+      );
 
-    const data = await response.json();
+      const data = await response.json();
 
       setAnswers(data);
-
     } catch (error) {
       console.log('Unable to load answers.');
     }
   }
 
+  // Create a new answer
   async function handleAnswerSubmit(event) {
     event.preventDefault();
 
@@ -116,13 +117,13 @@ const response = await fetch(
     }
 
     try {
-  const response = await fetch(
-  'https://first-gen-career-life-hub.onrender.com/api/answers',
-  {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+      const response = await fetch(
+        'https://first-gen-career-life-hub.onrender.com/api/answers',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
             body: answerText,
             question: selectedQuestion._id,
@@ -141,7 +142,6 @@ const response = await fetch(
 
         setAnswerText('');
       }
-
     } catch (error) {
       console.log('Unable to post answer.');
     }
@@ -153,178 +153,201 @@ const response = await fetch(
       <h2>Welcome, {username}</h2>
 
       <button
-  type="button"
-  className="logout-button"
-  onClick={handleLogout}
->
-  Logout
-</button>
+        type="button"
+        className="logout-link"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
 
       <p>
         Choose a category to explore questions from the First-Gen community.
       </p>
 
-      <h3>Categories</h3>
+      <div className="dashboard-layout">
 
-      <div className="category-list">
+        <aside className="category-sidebar">
 
-        {categories.map(function(category) {
-          return (
-            <button
-              key={category._id}
-              className={
-                selectedCategory?._id === category._id
-                  ? 'active-category'
-                  : ''
-              }
-              onClick={() => selectCategory(category)}
-            >
-              {category.name}
-            </button>
-          );
-        })}
+          <h3>Categories</h3>
 
-      </div>
-
-      {selectedCategory && (
-        <div className="category-section">
-
-          <h3>{selectedCategory.name}</h3>
-
-          <form onSubmit={handleQuestionSubmit}>
-
-            <h4>Ask a Question</h4>
-
-            <label htmlFor="questionTitle">
-              Question Title
-            </label>
-
-            <input
-              type="text"
-              id="questionTitle"
-              value={questionTitle}
-              onChange={(event) =>
-                setQuestionTitle(event.target.value)
-              }
-            />
-
-            <label htmlFor="questionBody">
-              Question
-            </label>
-
-            <textarea
-              id="questionBody"
-              value={questionBody}
-              onChange={(event) =>
-                setQuestionBody(event.target.value)
-              }
-            />
-
-            <button type="submit">
-              Post Question
-            </button>
-
-          </form>
-
-          {questions.length === 0 ? (
-            <p>No questions yet in this category.</p>
-          ) : (
-            questions.map(function(question) {
+          <div className="category-list">
+            {categories.map(function(category) {
               return (
-                <div
-                  key={question._id}
-                  className="question-card"
+                <button
+                  key={category._id}
+                  className={
+                    selectedCategory?._id === category._id
+                      ? 'active-category'
+                      : ''
+                  }
+                  onClick={() => selectCategory(category)}
                 >
-
-                  <h4>{question.title}</h4>
-
-                  <p>{question.body}</p>
-
-                  {question.author && (
-                    <p>
-                      Posted by: {question.author.username}
-                    </p>
-                  )}
-                  {question.createdAt && (
-  <p>
-    Posted: {new Date(question.createdAt).toLocaleString()}
-  </p>
-)}
-
-                  <button
-                    type="button"
-                    onClick={() => openQuestion(question)}
-                  >
-                    View Answers
-                  </button>
-
-                </div>
+                  {category.name}
+                </button>
               );
-            })
+            })}
+          </div>
+
+        </aside>
+
+        <section className="forum-content">
+
+          {!selectedCategory && (
+            <div className="category-placeholder">
+              <h3>Select a Category</h3>
+
+              <p>
+                Choose a category from the menu to view community questions.
+              </p>
+            </div>
           )}
 
-          {selectedQuestion && (
-            <div>
+          {selectedCategory && (
+            <div className="category-section">
 
-              <h3>
-                Answers for: {selectedQuestion.title}
-              </h3>
+              <h3>{selectedCategory.name}</h3>
 
-              <form onSubmit={handleAnswerSubmit}>
+              <form onSubmit={handleQuestionSubmit}>
 
-                <label htmlFor="answerText">
-                  Your Answer
+                <h4>Ask a Question</h4>
+
+                <label htmlFor="questionTitle">
+                  Question Title
+                </label>
+
+                <input
+                  type="text"
+                  id="questionTitle"
+                  value={questionTitle}
+                  onChange={(event) =>
+                    setQuestionTitle(event.target.value)
+                  }
+                />
+
+                <label htmlFor="questionBody">
+                  Question
                 </label>
 
                 <textarea
-                  id="answerText"
-                  value={answerText}
+                  id="questionBody"
+                  value={questionBody}
                   onChange={(event) =>
-                    setAnswerText(event.target.value)
+                    setQuestionBody(event.target.value)
                   }
                 />
 
                 <button type="submit">
-                  Post Answer
+                  Post Question
                 </button>
 
               </form>
 
-              {answers.length === 0 ? (
-                <p>No answers yet.</p>
+              {questions.length === 0 ? (
+                <p>No questions yet in this category.</p>
               ) : (
-                answers.map(function(answer) {
+                questions.map(function(question) {
                   return (
                     <div
-                      key={answer._id}
-                      className="answer-card"
+                      key={question._id}
+                      className="question-card"
                     >
 
-                      <p>{answer.body}</p>
+                      <h4>{question.title}</h4>
 
-                      {answer.author && (
+                      <p>{question.body}</p>
+
+                      {question.author && (
                         <p>
-                          Answered by: {answer.author.username}
+                          Posted by: {question.author.username}
                         </p>
                       )}
-                     {answer.createdAt && (
-  <p>
-    Answered: {new Date(answer.createdAt).toLocaleString()}
-  </p>
-)}
+
+                      {question.createdAt && (
+                        <p>
+                          Posted: {new Date(question.createdAt).toLocaleString()}
+                        </p>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() => openQuestion(question)}
+                      >
+                        View Answers
+                      </button>
 
                     </div>
                   );
                 })
               )}
 
+              {selectedQuestion && (
+                <div>
+
+                  <h3>
+                    Answers for: {selectedQuestion.title}
+                  </h3>
+
+                  <form onSubmit={handleAnswerSubmit}>
+
+                    <label htmlFor="answerText">
+                      Your Answer
+                    </label>
+
+                    <textarea
+                      id="answerText"
+                      value={answerText}
+                      onChange={(event) =>
+                        setAnswerText(event.target.value)
+                      }
+                    />
+
+                    <button type="submit">
+                      Post Answer
+                    </button>
+
+                  </form>
+
+                  {answers.length === 0 ? (
+                    <p>No answers yet.</p>
+                  ) : (
+                    answers.map(function(answer) {
+                      return (
+                        <div
+                          key={answer._id}
+                          className="answer-card"
+                        >
+
+                          <p>{answer.body}</p>
+
+                          {answer.author && (
+                            <p>
+                              Answered by: {answer.author.username}
+                            </p>
+                          )}
+
+                          {answer.createdAt && (
+                            <p>
+                              Answered: {new Date(answer.createdAt).toLocaleString()}
+                            </p>
+                          )}
+
+                        </div>
+                      );
+                    })
+                  )}
+
+                </div>
+              )}
+
             </div>
           )}
 
-        </div>
-      )}
+        </section>
+
+      </div>
 
       <div className="dedication">
+
         <h3>For the Ones Who Came Before Us</h3>
 
         <p>
@@ -341,6 +364,7 @@ const response = await fetch(
         <p className="dedication-closing">
           We are first-gen, but we are never the first ones who dreamed of getting here.
         </p>
+
       </div>
 
     </div>

@@ -52,6 +52,27 @@ This application provides a space where first-generation users can share questio
 - MongoDB Atlas
 - Mongoose
 
+## Database Schema and Example Data
+
+The application uses MongoDB with Mongoose models for:
+
+- Users
+- Categories
+- Questions
+- Answers
+
+The relationships between the collections allow users to create questions within categories and post answers to individual questions.
+
+Example category data is provided in `seed.js`, including:
+
+- Career & Workplace
+- College & Education
+- Confidence & Imposter Syndrome
+- Lessons & Life Advice
+- Money & Adulting
+
+The seed file is included to demonstrate the application's example data structure. The deployed MongoDB Atlas database already contains the application's category data.
+
 ### Other Tools
 - bcryptjs for password hashing
 - dotenv for environment variables
