@@ -1,4 +1,14 @@
 # First-Gen Career & Life Hub
+## Live Project
+
+Frontend:
+https://first-gen-career-life-hub-1.onrender.com
+
+Backend API:
+https://first-gen-career-life-hub.onrender.com
+
+GitHub Repository:
+https://github.com/Aprolyx/first-gen-career-life-hub
 
 First-Gen Career & Life Hub is a full-stack forum designed to create a supportive online community for first-generation students and professionals.
 
