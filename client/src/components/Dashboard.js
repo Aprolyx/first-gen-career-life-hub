@@ -15,7 +15,7 @@ function Dashboard({ username, userId, handleLogout }) {
     async function loadCategories() {
       try {
         const response = await fetch(
-          'http://localhost:3001/api/categories'
+         'https://first-gen-career-life-hub.onrender.com/api/categories'
         );
 
         const data = await response.json();
@@ -35,10 +35,10 @@ function Dashboard({ username, userId, handleLogout }) {
     setSelectedQuestion(null);
     setAnswers([]);
 
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/questions/category/${category._id}`
-      );
+   try {
+  const response = await fetch(
+    `https://first-gen-career-life-hub.onrender.com/api/questions/category/${category._id}`
+  );
 
       const data = await response.json();
 
